@@ -1,0 +1,32 @@
+.text-area {
+  border: none;
+  outline: none;
+  color: black;
+  font-family: cursive;
+}
+
+.sticky {
+  position: sticky;
+}
+
+.display-flex {
+  display: flex;
+  align-items: center;
+}
+
+.border-ai {
+  border-radius: 1rem 1rem 1rem 1rem;
+}
+
+.zoom-effect:hover {
+  transform: scale(1.2); /* Zooms the div to 1.2 times its original size */
+}
+
+.image-product {
+  height: 11rem;
+  width: 22rem;
+}
+
+.matrix-font {
+  font-family: "Matrix", sans-serif;
+}

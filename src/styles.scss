@@ -1,0 +1,47 @@
+@font-face {
+  font-family: "Matrix";
+  src: url("assets/fonts/matrix.woff") format("woff");
+  font-weight: normal; /* Or specify a different weight */
+  font-style: normal;
+}
+
+:root {
+  --theme-color: #ea580c;
+
+  font-family: "Inter", sans-serif;
+
+  .logo-size {
+    width: 8rem;
+  }
+
+  .bg-orange-600 {
+    background: var(--theme-color);
+  }
+
+  .bg-orange-500 {
+    background: linear-gradient(to bottom, var(--theme-color), #fcd9c7);
+  }
+
+  .text-orange-600 {
+    color: var(--theme-color);
+  }
+
+  .bg-white {
+    background-color: white;
+  }
+
+  p-button {
+    background-color: var(--theme-color);
+    color: white;
+    border-radius: 1rem 1rem 1rem 1rem;
+  }
+  p-button:hover {
+    background-color: var(--theme-color);
+    color: white;
+    border-radius: 1rem 1rem 1rem 1rem;
+  }
+
+  .disabled-button {
+    background-color: lightgrey;
+  }
+}

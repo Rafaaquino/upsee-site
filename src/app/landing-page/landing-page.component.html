@@ -1,0 +1,363 @@
+<!-- Header -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
+  <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+    <div class="offcanvas__logo mr-2">
+      <a href="index.html">
+        <img
+          class="logo-size"
+          src="assets/images/logo/logo-dark.png"
+          alt="Upsee"
+        />
+      </a>
+    </div>
+    <nav class="space-x-6 text-gray-600 text-sm font-medium display-flex">
+      <a href="#servicos" class="hover:text-orange-500">Serviços</a>
+      <a href="#videos" class="hover:text-orange-500">Insights</a>
+      <a href="#contato" class="hover:text-orange-500">Contato</a>
+      <a
+        class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors duration-100 ease-in-out focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none border border-input bg-muted shadow-sm hover:bg-accent hover:border-accent h-8 rounded-md px-4 py-2"
+        id="login-link"
+        href="https://www.upsee.app.br/"
+        target="_blank"
+        >Login</a
+      >
+    </nav>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="bg-orange-500 text-white py-24 text-center">
+  <div class="container mx-auto px-6 mt-4">
+    <h2 class="text-5xl font-bold mb-6">Análise Visual com IA</h2>
+    <p class="text-xl mb-8 max-w-2xl mx-auto">
+      Detecte, conte, analize e monitore seu público com precisão e Inteligência
+      Artificial usando nossos relatórios em tempo real. Ideal para shows,
+      feiras, festivais e muito mais.
+    </p>
+
+    <div class="relative size-full">
+      <form
+        (ngSubmit)="callAI()"
+        class="group flex flex-col gap-2 p-3 w-full rounded-3.5xl border border-muted-border bg-muted text-base shadow-xl border-ai bg-white"
+      >
+        <div class="relative flex flex-1 items-center">
+          <textarea
+            class="flex w-full rounded-md px-2 py-2 ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none border-ai text-area"
+            #necessidadeInput
+            autofocus=""
+            style="min-height: 80px; height: 80px"
+            placeholder="Qual a necessidade do seu negócio? "
+            maxlength="50000"
+            [(ngModel)]="necessidade"
+            [ngModelOptions]="{ standalone: true }"
+          ></textarea>
+        </div>
+        <div class="flex gap-1 flex-wrap items-center">
+          <div class="ml-auto flex items-center gap-1">
+            <div class="relative flex items-center gap-2">
+              <button
+                pButton
+                id="chatinput-send-message-button"
+                type="submit"
+                class="flex h-8 w-8 items-center justify-center rounded-full bg-orange-600 transition-opacity duration-150 ease-out disabled:cursor-not-allowed disabled:opacity-50"
+                [disabled]="(isAIDisabled$ | async) || false"
+                [loading]="(isLoading$ | async) || false"
+                [ngClass]="{
+                  'disabled-button':
+                    (isAIDisabled$ | async) || false || necessidade.length < 10
+                }"
+              >
+                <svg
+                  *ngIf="(isLoading$ | async) == false"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="100%"
+                  height="100%"
+                  viewBox="0 -960 960 960"
+                  class="shrink-0 h-6 w-6 text-background"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M442.39-616.87 309.78-487.26q-11.82 11.83-27.78 11.33t-27.78-12.33q-11.83-11.83-11.83-27.78 0-15.96 11.83-27.79l198.43-199q11.83-11.82 28.35-11.82t28.35 11.82l198.43 199q11.83 11.83 11.83 27.79 0 15.95-11.83 27.78-11.82 11.83-27.78 11.83t-27.78-11.83L521.61-618.87v348.83q0 16.95-11.33 28.28-11.32 11.33-28.28 11.33t-28.28-11.33q-11.33-11.33-11.33-28.28z"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="mt-2">
+          <p class="text-muted fw-bolder text-break matrix-font">{{ AIResponse }}</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Serviços -->
+<section id="servicos" class="py-20 bg-gray-50">
+  <div class="container mx-auto px-6 text-center">
+    <h3 class="text-3xl font-bold mb-12">O que a Upsee faz por você</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+      <div class="p-6 bg-white rounded-xl shadow zoom-effect">
+        <h4 class="text-xl font-semibold mb-2 text-orange-500">
+          Contagem de Público
+        </h4>
+        <p>
+          Saiba quantas pessoas estão presentes e horários de pico em cada área
+          do seu evento em tempo real com visão computacional.
+        </p>
+      </div>
+      <div class="p-6 bg-white rounded-xl shadow zoom-effect">
+        <h4 class="text-xl font-semibold mb-2 text-orange-500">
+          Mapa de Objetos
+        </h4>
+        <p>
+          Utilizando OpenCV e YOLO, detectamos objetos de forma rápida e precisa
+          para análises espaciais, como o fluxo de visitantes e distribuição de
+          pessoas.
+        </p>
+      </div>
+      <div class="p-6 bg-white rounded-xl shadow zoom-effect">
+        <h4 class="text-xl font-semibold mb-2 text-orange-500">
+          Alertas Inteligentes
+        </h4>
+        <p>
+          Receba alertas automáticos em tempo real sobre aglomerações, objetos
+          esquecidos ou comportamentos suspeitos no ambiente.
+        </p>
+      </div>
+      <div class="p-6 bg-white rounded-xl shadow zoom-effect">
+        <h4 class="text-xl font-semibold mb-2 text-orange-500">
+          Relatórios Visuais e Dashboards
+        </h4>
+        <p>
+          Fornecemos dashboards customizados com gráficos interativos, mapas de
+          calor e histórico de eventos para tomada de decisão em tempo real.
+        </p>
+      </div>
+      <div class="p-6 bg-white rounded-xl shadow zoom-effect">
+        <h4 class="text-xl font-semibold mb-2 text-orange-500">
+          Análise Demográfica
+        </h4>
+        <p>
+          Com IA, estimamos idade, gênero e humor predominante do público para
+          insights detalhados de marketing e experiência.
+        </p>
+      </div>
+      <div class="p-6 bg-white rounded-xl shadow zoom-effect">
+        <h4 class="text-xl font-semibold mb-2 text-orange-500">
+          Reconhecimento de Acessos
+        </h4>
+        <p>
+          Identifique entradas e saídas em pontos estratégicos com
+          reconhecimento facial opcional e controle de fluxo.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="exemplos" class="py-20 bg-white">
+  <div class="container mx-auto px-6 text-center">
+    <h3 class="text-3xl font-bold mb-12">Veja a Upsee em Ação</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="zoom-effect">
+        <img
+          src="assets/video/cattle.png"
+          alt="Contagem de gado"
+          class="rounded-xl shadow-md mb-4 image-product"
+        />
+        <p class="text-sm text-gray-600">
+          Contagem e análise de gado e outros animais
+        </p>
+      </div>
+      <div class="zoom-effect">
+        <img
+          src="assets/video/reports.png"
+          alt="Reports"
+          class="rounded-xl shadow-md mb-4 image-product"
+        />
+        <p class="text-sm text-gray-600">Relatórios em tempo real</p>
+      </div>
+      <div class="zoom-effect">
+        <img
+          src="assets/video/traffic.png"
+          alt="transito"
+          class="rounded-xl shadow-md mb-4 image-product"
+        />
+        <p class="text-sm text-gray-600">Análise de tráfego de veículos</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Vídeos -->
+<section id="videos" class="py-20">
+  <div class="container mx-auto px-6 text-center">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="rounded-lg overflow-hidden shadow-lg">
+        <video loop controls autoplay>
+          <source src="assets/video/crowd.mp4" type="video/mp4" />
+        </video>
+        <p class="mt-3 font-semibold mb-2">Análise com Drone</p>
+      </div>
+      <div class="rounded-lg overflow-hidden shadow-lg">
+        <video loop controls autoplay>
+          <source src="assets/video/avenida.mp4" type="video/mp4" />
+        </video>
+        <p class="mt-3 font-semibold mb-2">Mapa de Objetos</p>
+      </div>
+      <div class="rounded-lg overflow-hidden shadow-lg">
+        <video loop controls autoplay>
+          <source src="assets/video/deteccao-de-pessoas.mp4" type="video/mp4" />
+        </video>
+        <p class="mt-3 font-semibold mb-2">Alertas de Aglomerações</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contato -->
+<section id="contato" class="py-24 bg-orange-50">
+  <div class="container mx-auto px-6 max-w-4xl">
+    <h3 class="text-3xl font-bold text-center mb-12 text-orange-600">
+      Fale com a Upsee
+    </h3>
+    <form
+      [formGroup]="formContact"
+      (ngSubmit)="contact()"
+      id="contact-us-message__form"
+      class="bg-white p-8 rounded-xl shadow space-y-6"
+      method="post"
+      action="#"
+    >
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-sm font-medium mb-1">Nome</label>
+          <input
+            formControlName="name"
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Seu nome"
+            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1">Empresa</label>
+          <input
+            formControlName="company"
+            type="text"
+            name="company"
+            id="company"
+            placeholder="Nome da empresa"
+            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1">Email</label>
+          <input
+            formControlName="email"
+            type="email"
+            name="email"
+            id="email"
+            placeholder="email@dominio.com"
+            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1">Telefone</label>
+          <input
+            formControlName="tel"
+            type="text"
+            name="tel"
+            id="tel"
+            placeholder="(00) 00000-0000"
+            mask="(00) 00000-0000"
+            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400"
+          />
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1">Assunto</label>
+        <select
+          formControlName="subject"
+          name="subject"
+          id="subject"
+          class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400"
+        >
+          <option value="">Selecione...</option>
+          <option value="Solicitação">Solicitação</option>
+          <option value="Dúvidas">Dúvidas</option>
+          <option value="Financeiro">Financeiro</option>
+          <option value="Outros">Outros</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1">Mensagem</label>
+        <textarea
+          formControlName="textarea"
+          name="textarea"
+          id="textarea"
+          rows="4"
+          placeholder="Digite sua mensagem..."
+          class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400"
+        ></textarea>
+      </div>
+      <div class="text-center">
+        <p-button
+          type="submit"
+          class="btn btn-lg"
+          [disabled]="!formContact.valid || (isLoading$ | async) || false"
+          [loading]="(isLoading$ | async) || false"
+          label="Enviar Mensagem"
+        />
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer
+  class="mx-auto mb-4 flex w-full flex-col justify-center rounded-[20px] border-2 border-moon-100 bg-background px-8 py-8 dark:border-moon-800 sm:flex-row mt-6"
+>
+  <nav
+    class="grid w-full grid-cols-3 content-center justify-end gap-4 gap-y-12 text-base sm:gap-12 md:grid-cols-6"
+  >
+    <div
+      class="col-span-full mb-16 flex flex-col max-sm:items-center sm:col-span-1 sm:mb-0"
+    >
+      <div class="max-sm:text-center">
+        <p class="mb-3 font-medium">Redes Sociais</p>
+        <ul class="space-y-3 font-normal text-muted-foreground">
+          <li>
+            <a
+              href="https://twitter.com"
+              target="_blank"
+              title="Follow on X"
+              class="hover:underline"
+              >X / Twitter</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.linkedin.com"
+              target="_blank"
+              title="Follow on LinkedIn"
+              class="hover:underline"
+              >LinkedIn</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://discord.com/invite/"
+              target="_blank"
+              title="Join the Discord server"
+              class="hover:underline"
+              >Discord</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</footer>
