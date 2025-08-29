@@ -101,7 +101,7 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
     for (let i = 0; i < response.length; i++) {
       setTimeout(() => {
         this.AIResponse += response[i];
-      }, i * 50); // 50ms per character for typing effect
+      }, i * 30); // 30ms per character for typing effect
     }
   }
 
