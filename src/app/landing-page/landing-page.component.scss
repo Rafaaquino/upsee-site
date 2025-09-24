@@ -29,3 +29,16 @@
 .matrix-font {
   font-family: "Matrix", sans-serif;
 }
+
+p-button {
+  color: white !important;
+  border-radius: 1rem 1rem 1rem 1rem !important;
+}
+p-button:hover {
+  color: white;
+  border-radius: 1rem 1rem 1rem 1rem !important;
+}
+
+.disabled-button {
+  background-color: lightgrey !important;
+}

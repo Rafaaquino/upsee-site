@@ -59,7 +59,7 @@
                 pButton
                 id="chatinput-send-message-button"
                 type="submit"
-                class="flex h-8 w-8 items-center justify-center rounded-full bg-orange-600 transition-opacity duration-150 ease-out disabled:cursor-not-allowed disabled:opacity-50"
+                class="flex items-center justify-center rounded-full bg-orange-600 transition-opacity duration-150 ease-out disabled:cursor-not-allowed disabled:opacity-50"
                 [disabled]="(isAIDisabled$ | async) || false"
                 [loading]="(isLoading$ | async) || false"
                 [ngClass]="{
@@ -286,10 +286,10 @@
           class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400"
         >
           <option value="">Selecione...</option>
-          <option value="Solicitação">Solicitação</option>
-          <option value="Dúvidas">Dúvidas</option>
-          <option value="Financeiro">Financeiro</option>
-          <option value="Outros">Outros</option>
+          <option value="Demo">Demonstração</option>
+          <option value="Question">Dúvidas</option>
+          <option value="Support">Suporte</option>
+          <option value="Other">Outros</option>
         </select>
       </div>
       <div>

@@ -6,8 +6,11 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { BehaviorSubject, Subject, throwError } from 'rxjs';
-import { OpenAITranslateService } from '../services/📄 openai-question.service';
+import { BehaviorSubject, take } from 'rxjs';
+import { OpenAITranslateService } from './services/📄 openai-question.service';
+import { Contact } from './model/contact';
+import { ContactService } from './services/contact.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-landing-page',
@@ -45,12 +48,14 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
     email: ['', Validators.required],
     tel: ['', Validators.required],
     subject: ['', Validators.required],
-    textarea: [''],
+    textarea: ['', Validators.required],
   });
 
   constructor(
     private fb: FormBuilder,
-    public openAITranslateService: OpenAITranslateService
+    private readonly openAITranslateService: OpenAITranslateService,
+    private readonly contactService: ContactService,
+    private messageService: MessageService
   ) {}
 
   public ngOnInit(): void {}
@@ -92,7 +97,30 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
 
   public contact(): void {
     this.isLoadingSubject.next(true);
-    console.log(this.formContact.value);
+    this.contactService
+      .contatoUpsee(this.formContact.value as Contact)
+      .pipe(take(1))
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.isLoadingSubject.next(false);
+          this.formContact.reset();
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Obrigado',
+            detail: 'Em breve entraremos em contato',
+          });
+        },
+        error: (err) => {
+          console.log('error ', err);
+          this.isLoadingSubject.next(false);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Ocorreu um erro',
+            detail: 'Por favor tente novamente mais tarde',
+          });
+        },
+      });
   }
 
   private animateAIResponse(response: string) {

@@ -1,0 +1,7 @@
+{
+  "/ContactUpsee": {
+    "target": "http://localhost:8080/Opportunity",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

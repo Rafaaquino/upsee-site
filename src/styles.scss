@@ -1,3 +1,7 @@
+@import "primeng/resources/themes/saga-orange/theme.css"; // Or your chosen theme
+@import "primeng/resources/primeng.min.css";
+@import "primeicons/primeicons.css"; // If using PrimeIcons
+
 @font-face {
   font-family: "Matrix";
   src: url("assets/fonts/matrix.woff") format("woff");
@@ -11,37 +15,30 @@
   font-family: "Inter", sans-serif;
 
   .logo-size {
-    width: 8rem;
+    width: 8rem !important;
   }
 
   .bg-orange-600 {
-    background: var(--theme-color);
+    background: var(--theme-color) !important;
+    border-radius: 1rem 1rem 1rem 1rem !important;
   }
 
   .bg-orange-500 {
-    background: linear-gradient(to bottom, var(--theme-color), #fcd9c7);
+    background: linear-gradient(
+      to bottom,
+      var(--theme-color),
+      #fcd9c7
+    ) !important;
+    border-radius: 1rem 1rem 1rem 1rem !important;
   }
 
   .text-orange-600 {
-    color: var(--theme-color);
+    color: var(--theme-color) !important;
   }
 
   .bg-white {
-    background-color: white;
+    background-color: white !important;
   }
 
-  p-button {
-    background-color: var(--theme-color);
-    color: white;
-    border-radius: 1rem 1rem 1rem 1rem;
-  }
-  p-button:hover {
-    background-color: var(--theme-color);
-    color: white;
-    border-radius: 1rem 1rem 1rem 1rem;
-  }
 
-  .disabled-button {
-    background-color: lightgrey;
-  }
 }
